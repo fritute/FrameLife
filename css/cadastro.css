@@ -1,0 +1,110 @@
+* {
+    padding: 0;
+    box-sizing: border-box;
+    margin: 0;
+}
+
+body {
+    background-image: url('/src/img/image2.png');
+    background-attachment: fixed;
+    background-size: cover;
+    background-position: center;
+    width: 100%;
+}
+
+#img1{
+    width: 300px;
+    height: auto;
+}
+
+.inputs {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5em; 
+    transform: translateY(-10%);
+}
+
+.inputs input[type="celularEmail"],
+.inputs input[type="user"],
+.inputs input[type="nomeCompleto"],
+.inputs input[type="criarSenha"] {
+    width: 80%;
+    height: 80px;
+    border-radius: 30px;
+    background-color: rgba(0, 0, 0, 0.502);
+    padding: 10px;
+    font-size: 1em;
+    color: #ffffff; 
+    font-family: Arial, sans-serif; 
+    font-weight: bold; 
+}
+
+.inputs label {
+    align-self: flex-start;
+    margin-left: 10%;
+    font-size: 1em;
+    color: #ffffff;
+    font-family: Arial, sans-serif;
+}
+
+.inputs button {
+    width: 300px;
+    height: 90px;
+    background-color: #007bff;
+    color: white;
+    font-size: 1.2em;
+    cursor: pointer;
+    border-radius: 30px;
+}
+
+.textoCadastro {
+    font-size: 3.0em;
+    color: #453c94;
+    font-family: 'Times New Roman', Times, serif;
+    text-align: center;
+    margin-top: 50px;
+    transform: translateY(-45%);
+}
+
+.container {
+    width: 45%;
+    height: 79%;
+    background-color: rgba(121, 121, 121, 0.5); 
+    z-index: 1;
+    border-radius: 10%;
+    border-color: #453c94;
+    border-style: solid;
+    transform: translate(5%, -9%); /* Adjusted to move upwards */
+}
+
+
+main {
+    display: flex;
+    position: relative;
+    z-index: 1;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+#possuiCadastro {
+    position: absolute;
+    bottom: 60px; /* Adjusted to move it higher */
+    right: 10%; /* Adjusted to move it left */
+    color: white;
+    font-size: 0.9em;
+}
+
+
+#fazerLogin {
+    position: absolute;
+    bottom: 30px;
+    right: 10%; 
+    color: blue;
+    cursor: pointer;
+    font-size: 0.9em;
+}

@@ -3,7 +3,7 @@
 
 const API_URL = 'https://back-spider.vercel.app/login'
 
-// Função para realizar o login
+
 async function login(email, password) {
     return new Promise(async (resolve, reject) => {
         try {
@@ -31,8 +31,7 @@ async function login(email, password) {
                 resolve(data) 
             } else {
                 const errorData = await response.json()
-                console.error('Erro da API:', errorData)
-                showError(errorData.message || 'E-mail ou senha inválidos.') // Exibe a mensagem de erro retornada pela API
+                showError(errorData.message || 'E-mail ou senha inválidos.')
                 reject(errorData)
             }
         } catch (error) {
@@ -43,7 +42,7 @@ async function login(email, password) {
     })
 }
 
-// Evento de clique no botão de login
+
 document.getElementById('login-button').addEventListener('click', async () => {
     const email = document.getElementById('email').value
     const password = document.getElementById('password').value
@@ -55,7 +54,7 @@ document.getElementById('login-button').addEventListener('click', async () => {
 
     login(email, password)
         .then(data => {
-            // Exibe uma caixinha indicando que os dados foram retornados
+            
             showDataBox(`Dados retornados: ${JSON.stringify(data)}`)
         })
         .catch(error => {
@@ -63,7 +62,7 @@ document.getElementById('login-button').addEventListener('click', async () => {
         })
 })
 
-// Função para exibir mensagens de erro
+
 function showError(message) {
     const errorMessage = document.getElementById('error-message')
     errorMessage.textContent = message
