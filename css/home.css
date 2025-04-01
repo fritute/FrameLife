@@ -1,0 +1,135 @@
+* {
+    padding: 0;
+    box-sizing: border-box;
+    margin: 0;
+}
+
+header {
+    background-image: url('/src/img/image2.png');
+    background-attachment: fixed;
+    background-size: cover;
+    background-position: center;
+    width: 100%;
+    padding: 15px 20px;
+}
+
+.header-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.left-section {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    flex: 1;
+}
+
+.center-section {
+    display: flex;
+    justify-content: center;
+    flex: 1;
+}
+
+.right-section {
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.menu {
+    display: flex;
+    align-items: center;
+}
+
+.frame-life {
+    color: white;
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
+.telaInicio {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.home-icon {
+    height: 1.2em;
+    width: auto;
+    filter: brightness(0) invert(1);
+}
+
+h1 {
+    color: white;
+    font-size: 1.5em;
+    font-weight: bold;
+    margin: 0;
+    white-space: nowrap;
+}
+
+.icon {
+    height: 24px;
+    width: auto;
+    filter: brightness(0) invert(1);
+}
+.imagem {
+    width: 100%; 
+    max-width: 300px; 
+    height: auto; 
+    margin-top: 10px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+main {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 20px;
+    background-color: #f4f4f4;
+    min-height: 100vh;
+}
+
+#publicacoes-container {
+    width: 70%; /* Ocupa a maior parte da tela */
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+}
+
+.publicacao {
+    margin-bottom: 20px;
+    padding: 15px;
+    border-bottom: 1px solid #ddd;
+}
+
+.publicacao h2 {
+    font-size: 1.5em;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.publicacao p {
+    font-size: 1em;
+    color: #555;
+    line-height: 1.5;
+}
+#nova-postagem-btn {
+    display: inline-block;
+    background-color: #4CAF50;
+    color: white;
+    text-decoration: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 1em;
+    margin-bottom: 20px;
+}
+
+#nova-postagem-btn:hover {
+    background-color: #45a049;
+}

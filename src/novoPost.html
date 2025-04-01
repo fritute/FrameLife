@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/novoPost.css">
+    <script src="../js/novoPost.js" defer></script>
+    <title>Nova Postagem</title>
+</head>
+<body>
+    <header>
+        <h1>Nova Postagem</h1>
+    </header>
+    <main>
+        <form id="nova-postagem-form">
+            <label for="descricao">Descrição:</label>
+            <input type="text" id="descricao" name="descricao" placeholder="Digite a descrição" required>
+            
+            <label for="imagem">Imagem (URL):</label>
+            <input type="url" id="imagem" name="imagem" placeholder="URL da imagem" required>
+            
+            <label for="local">Local:</label>
+            <input type="text" id="local" name="local" placeholder="Digite o local" required>
+            
+            <button type="submit">Publicar</button>
+        </form>
+        <div id="formulario">
+            <a href="../src/atualizarPost.html" id="atualizar-btn" class="botao">Atualizar</a>
+            <a href="../src/deletarPost.html" id="apagar-btn" class="botao">Apagar</a>
+        </div>
+    </main>
+</body>
+</html>

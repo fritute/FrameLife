@@ -23,12 +23,12 @@ document.addEventListener('DOMContentLoaded', function () {
     const button = document.getElementById('botaoCadastrar')
     if (button) {
         button.addEventListener('click', function (event) {
-            event.preventDefault() // Evita o comportamento padrão do botão
+            event.preventDefault() 
 
             const emailInput = document.getElementById('email')
             const nomeInput = document.getElementById('nome')
             const senhaInput = document.getElementById('senha')
-
+    
             if (emailInput && nomeInput && senhaInput) {
                 const userData = {
                     email: emailInput.value,
@@ -37,11 +37,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 }
                 console.log('Dados do usuário:', userData)
                 cadastrarUser(userData)
-            } else {
-                console.error('Um ou mais campos não foram encontrados no DOM.')
             }
         })
-    } else {
-        console.error('Botão de cadastro não encontrado no DOM.')
     }
-})
