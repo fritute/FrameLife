@@ -1,8 +1,6 @@
 'use strict'
 
-
 const API_URL = 'https://back-spider.vercel.app/login'
-
 
 async function login(email, password) {
     return new Promise(async (resolve, reject) => {
@@ -19,7 +17,7 @@ async function login(email, password) {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(data) 
+                body: JSON.stringify(data)
             })
 
             console.log('Status da resposta:', response.status)
@@ -28,7 +26,7 @@ async function login(email, password) {
                 const data = await response.json()
                 console.log('Dados recebidos:', data)
                 showSuccess('Login realizado com sucesso!')
-                resolve(data) 
+                resolve(data) // Retorna os dados recebidos
             } else {
                 const errorData = await response.json()
                 showError(errorData.message || 'E-mail ou senha inválidos.')
@@ -42,7 +40,6 @@ async function login(email, password) {
     })
 }
 
-
 document.getElementById('login-button').addEventListener('click', async () => {
     const email = document.getElementById('email').value
     const password = document.getElementById('password').value
@@ -54,19 +51,32 @@ document.getElementById('login-button').addEventListener('click', async () => {
 
     login(email, password)
         .then(data => {
-            
-            showDataBox(`Dados retornados: ${JSON.stringify(data)}`)
+            // Redireciona para a página home.html se o login for bem-sucedido
+            window.location.href = './home.html'
         })
         .catch(error => {
             console.error('Erro na promessa:', error)
         })
 })
 
-
 function showError(message) {
     const errorMessage = document.getElementById('error-message')
+    if (!errorMessage) {
+        console.error('Elemento de mensagem de erro não encontrado.')
+        return
+    }
     errorMessage.textContent = message
     errorMessage.style.display = 'block'
     errorMessage.style.color = 'red'
 }
 
+function showSuccess(message) {
+    const errorMessage = document.getElementById('error-message')
+    if (!errorMessage) {
+        console.error('Elemento de mensagem de sucesso não encontrado.')
+        return
+    }
+    errorMessage.textContent = message
+    errorMessage.style.display = 'block'
+    errorMessage.style.color = 'green'
+}

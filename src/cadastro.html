@@ -10,32 +10,34 @@
 <body>
     <header>
         <div class="imgLogo">
-            <img id="img1" src="/src/img/image1.png" alt="">
+            <img id="img1" src="/src/img/image1.png" alt="Logo">
         </div>
     </header>
     <main>
         <div class="container">
-                <h1 class="textoCadastro">Cadastro</h1>
+            <h1 class="textoCadastro">Cadastro</h1>
             <form action="" class="inputs">
-             <label for="celularEmail">Número do celular ou e-mail:</label>
-                <input type="celularEmail" id="celularEmail" name="celularEmail" placeholder="Digite seu e-mail ou número" required>
+                <label for="nome">Nome:</label>
+                <input type="text" id="nome" name="nome" placeholder="Digite seu nome" required>
                 <br>
-                    <label for="user">Usuário:</label>
-                    <input type="user" id="user" name="user" placeholder="Crie um nome de usuário" required>
-                </br>
+                <label for="email">E-mail:</label>
+                <input type="email" id="email" name="email" placeholder="Digite seu e-mail" required>
                 <br>
-                    <label for="nomeCompleto">Nome Completo:</label>
-                    <input type="nomeCompleto" id="nomeCompleto" name="nomeCompleto" placeholder="Digite seu nome completo" required>
-                </br>
+                <label for="senha">Senha:</label>
+                <input type="password" id="senha" name="senha" placeholder="Crie uma senha" required>
                 <br>
-                    <label for="criarSenha">Senha:</label>
-                    <input type="criarSenha" id="criarSenha" name="criarSenha" placeholder="Crie uma senha" required>
-                </br>
-                <button type="button" id="botaoCadastrar" href="/src/keyPassword.html">Login</button>
-    </form>
-    <p id="possuiCadastro">Já tem um cadastro?</p>
-    <a  id="fazerLogin" href="./index.html">Fazer login</a>
-</div>
+                <label for="senhaRecuperacao">Senha de Recuperação:</label>
+                <input type="password" id="senhaRecuperacao" name="senhaRecuperacao" placeholder="Digite uma senha de recuperação" required>
+                <br>
+                <label for="imagem">URL da Imagem:</label>
+                <input type="text" id="imagem" name="imagem" placeholder="Digite a URL da imagem" required>
+                <br>
+                <button type="button" id="botaoCadastrar">Cadastrar</button>
+            </form>
+            <p id="mensagem" style="display: none;"></p> <!-- Mensagem de erro ou sucesso -->
+            <p id="possuiCadastro">Já tem um cadastro?</p>
+            <a id="fazerLogin" href="./index.html">Fazer login</a>
+        </div>
     </main>
 </body>
 </html>

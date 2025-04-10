@@ -14,7 +14,7 @@
                 <div class="menu">
                     <img src="./img/Vector.png" alt="Menu" class="icon">
                 </div>
-                <img  id="imagem" src="./img/image1.png" alt="">
+                <img id="imagem" src="./img/image1.png" alt="">
             </div>
             
             <div class="center-section">
@@ -26,11 +26,28 @@
        </div>
     </header>
     <main>
-        <main>
-    <a href="./novoPost.html" id="nova-postagem-btn">Nova Postagem</a>
-    <div id="publicacoes-container"></div>
-</main>
+        <a href="./novoPost.html" id="nova-postagem-btn">Nova Postagem</a>
         <div id="publicacoes-container"></div>
     </main>
+
+    <!-- Modal para Atualizar Publicação -->
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <span id="modal-close" class="modal-close">&times;</span>
+            <h2>Atualizar Publicação</h2>
+            <form id="modal-form">
+                <label for="modal-descricao">Descrição:</label>
+                <input type="text" id="modal-descricao" required>
+                
+                <label for="modal-imagem">Imagem (URL):</label>
+                <input type="url" id="modal-imagem" required>
+                
+                <label for="modal-local">Local:</label>
+                <input type="text" id="modal-local" required>
+                
+                <button type="submit">Atualizar</button>
+            </form>
+        </div>
+    </div>
 </body>
 </html>

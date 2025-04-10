@@ -12,7 +12,7 @@ body {
     width: 100%;
 }
 
-#img1{
+#img1 {
     width: 300px;
     height: auto;
 }
@@ -28,19 +28,25 @@ body {
     transform: translateY(-10%);
 }
 
-.inputs input[type="celularEmail"],
-.inputs input[type="user"],
-.inputs input[type="nomeCompleto"],
-.inputs input[type="criarSenha"] {
+.inputs input[type="text"],
+.inputs input[type="email"],
+.inputs input[type="password"] {
     width: 80%;
     height: 80px;
     border-radius: 30px;
     background-color: rgba(0, 0, 0, 0.502);
     padding: 10px;
     font-size: 1em;
-    color: #ffffff; 
-    font-family: Arial, sans-serif; 
-    font-weight: bold; 
+    color: #ffffff;
+    font-family: Arial, sans-serif;
+    font-weight: bold;
+    border: none; /* Remove bordas padrão */
+    outline: none; /* Remove o contorno ao focar */
+}
+
+.inputs input::placeholder {
+    color: rgba(255, 255, 255, 0.7); /* Placeholder com opacidade */
+    font-weight: normal;
 }
 
 .inputs label {
@@ -78,9 +84,8 @@ body {
     border-radius: 10%;
     border-color: #453c94;
     border-style: solid;
-    transform: translate(5%, -9%); /* Adjusted to move upwards */
+    transform: translate(5%, -9%); /* Ajusted to move upwards */
 }
-
 
 main {
     display: flex;
@@ -99,7 +104,6 @@ main {
     font-size: 0.9em;
 }
 
-
 #fazerLogin {
     position: absolute;
     bottom: 30px;
@@ -107,4 +111,18 @@ main {
     color: blue;
     cursor: pointer;
     font-size: 0.9em;
+}
+
+#mensagem {
+    margin-top: 20px;
+    font-size: 1em;
+    text-align: center;
+}
+
+#mensagem.erro {
+    color: red;
+}
+
+#mensagem.sucesso {
+    color: green;
 }

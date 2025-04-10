@@ -35,6 +35,17 @@ body {
     font-family: Arial, sans-serif; 
     font-weight: bold; 
 }
+#formulario input[type="password"] {
+    width: 80%;
+    height: 80px;
+    border-radius: 30px;
+    background-color: rgba(0, 0, 0, 0.502);
+    padding: 10px;
+    font-size: 1em;
+    color: #ffffff;
+    font-family: Arial, sans-serif;
+    font-weight: bold;
+}
 
 #formulario label {
     align-self: flex-start;
