@@ -1,0 +1,279 @@
+/* ===== VARIÁVEIS E ESTILOS GERAIS ===== */
+:root {
+    --primary-color: #4CAF50;
+    --secondary-color: #2c3e50;
+    --text-color: #333;
+    --light-text: #7f8c8d;
+    --background: #f4f4f4;
+    --white: #fff;
+    --error-color: #e74c3c;
+    --comment-color: #3498db;
+    --gold: #FFD700;
+    --light-gray: #f9f9f9;
+    --border-color: #eee;
+  }
+ 
+  body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: var(--background);
+    color: var(--text-color);
+    line-height: 1.6;
+  }
+ 
+  /* ===== CABEÇALHO ===== */
+  header {
+    background-color: var(--primary-color);
+    color: var(--white);
+    padding: 1rem 0;
+    text-align: center;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  }
+ 
+  /* ===== CONTAINER PRINCIPAL ===== */
+  #perfil-container {
+    max-width: 800px;
+    margin: 2rem auto;
+    background-color: var(--white);
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+ 
+  /* ===== SEÇÃO DO USUÁRIO ===== */
+  #info-usuario {
+    text-align: center;
+    margin-bottom: 2rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--border-color);
+  }
+ 
+  #foto-perfil {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid var(--primary-color);
+    margin: 0 auto 1rem;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+    transition: transform 0.3s ease;
+  }
+ 
+  #foto-perfil:hover {
+    transform: scale(1.05);
+  }
+ 
+  #nome-usuario {
+    margin: 0.5rem 0;
+    color: var(--secondary-color);
+    font-size: 1.8rem;
+  }
+ 
+  #email-usuario {
+    color: var(--light-text);
+    margin-bottom: 0.5rem;
+    font-size: 1rem;
+  }
+ 
+  #premium-status {
+    display: inline-block;
+    padding: 0.3rem 0.8rem;
+    background-color: var(--gold);
+    color: var(--text-color);
+    border-radius: 15px;
+    font-size: 0.9rem;
+    margin: 0.5rem 0;
+    font-weight: bold;
+  }
+ 
+  /* ===== PUBLICAÇÕES ===== */
+  #publicacoes-container {
+    margin-top: 2rem;
+  }
+ 
+  #publicacoes-container h3 {
+    color: var(--secondary-color);
+    border-bottom: 2px solid var(--primary-color);
+    padding-bottom: 0.5rem;
+    margin-bottom: 1.5rem;
+  }
+ 
+  .publicacao {
+    margin-bottom: 1.5rem;
+    padding: 1.5rem;
+    background-color: var(--white);
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border-left: 4px solid var(--primary-color);
+  }
+ 
+  .publicacao:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  }
+ 
+  .post-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+    color: var(--light-text);
+    font-size: 0.9rem;
+  }
+ 
+  .post-content {
+    margin: 1rem 0;
+    color: var(--text-color);
+    line-height: 1.5;
+  }
+ 
+  .post-image {
+    width: 100%;
+    max-width: 650px;
+    height: auto;
+    display: block;
+    margin: 1rem auto;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  }
+ 
+  /* ===== INTERAÇÕES ===== */
+  .post-interactions {
+    display: flex;
+    gap: 1.5rem;
+    margin: 1rem 0;
+    padding: 0.5rem 0;
+    border-top: 1px solid var(--border-color);
+    border-bottom: 1px solid var(--border-color);
+  }
+ 
+  .likes-count, .comments-toggle {
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    font-size: 0.9rem;
+    color: var(--light-text);
+    cursor: pointer;
+  }
+ 
+  .comments-toggle:hover {
+    color: var(--comment-color);
+  }
+ 
+  .heart-icon {
+    color: var(--error-color);
+    font-size: 1.1rem;
+  }
+ 
+  .comment-icon {
+    color: var(--comment-color);
+    font-size: 1.1rem;
+  }
+ 
+  /* ===== COMENTÁRIOS ===== */
+  .comentarios-container {
+    margin-top: 0.5rem;
+    padding: 0.5rem;
+    background-color: var(--light-gray);
+    border-radius: 8px;
+    display: none; /* Inicialmente oculto */
+  }
+ 
+  .comentario {
+    margin: 0.5rem 0;
+    padding: 0.8rem;
+    background-color: var(--white);
+    border-radius: 6px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  }
+ 
+  .comentario-header {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+  }
+ 
+  .comentario-avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+ 
+  .comentario-autor {
+    font-weight: bold;
+    font-size: 0.9rem;
+    color: var(--text-color);
+  }
+ 
+  .comentario-texto {
+    font-size: 0.9rem;
+    color: var(--text-color);
+    padding-left: 2.5rem;
+  }
+ 
+  .sem-comentarios, .sem-curtidas {
+    color: var(--light-text);
+    font-style: italic;
+    font-size: 0.9rem;
+    text-align: center;
+    padding: 0.5rem;
+  }
+ 
+  /* ===== CURTIDAS ===== */
+  .curtidas-container {
+    margin-top: 1rem;
+    padding: 0.5rem 1rem;
+    background-color: var(--light-gray);
+    border-radius: 8px;
+  }
+ 
+  .lista-curtidas {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    font-size: 0.85rem;
+  }
+ 
+  .curtida {
+    background-color: #e0f7fa;
+    padding: 0.2rem 0.5rem;
+    border-radius: 12px;
+    color: #00796b;
+  }
+ 
+  /* ===== RESPONSIVIDADE ===== */
+  @media (max-width: 768px) {
+    #perfil-container {
+      margin: 1rem;
+      padding: 1rem;
+    }
+ 
+    #foto-perfil {
+      width: 120px;
+      height: 120px;
+    }
+ 
+    .publicacao {
+      padding: 1rem;
+    }
+ 
+    .post-image {
+      max-width: 90%;
+    }
+  }
+ 
+  /* ===== ERROS ===== */
+  .error {
+    padding: 1rem;
+    background: #ffebee;
+    border-left: 4px solid var(--error-color);
+    margin: 20px 0;
+    color: #b71c1c;
+  }
+ 
+  .error h3 {
+    margin-top: 0;
+  }
