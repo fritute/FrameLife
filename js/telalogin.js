@@ -51,7 +51,7 @@ document.getElementById('login-button').addEventListener('click', async () => {
 
     login(email, password)
         .then(data => {
-            // Redireciona para a página home.html se o login for bem-sucedido
+           
             window.location.href = './home.html'
         })
         .catch(error => {

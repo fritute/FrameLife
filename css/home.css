@@ -46,12 +46,6 @@ header {
     align-items: center;
 }
 
-.frame-life {
-    color: white;
-    font-size: 1.5em;
-    font-weight: bold;
-}
-
 .telaInicio {
     display: flex;
     align-items: center;
@@ -136,6 +130,7 @@ main {
 #nova-postagem-btn:hover {
     background-color: #45a049;
 }
+
 .lixeira {
     color: white;
     border: none;
@@ -145,7 +140,6 @@ main {
     font-size: 1em;
     margin-top: 10px;
     display: inline-block;
-    
 }
 
 .lixeira:hover {
@@ -153,12 +147,14 @@ main {
     transform: scale(1.1);
     transition: transform 0.2s ease;
 }
+
 .usuario-info {
     font-size: 0.9em;
     color: #777;
     margin-top: 5px;
     font-style: italic;
 }
+
 .lapis {
     background-color: #4CAF50;
     color: white;
@@ -176,8 +172,29 @@ main {
     transform: scale(1.1);
     transition: transform 0.2s ease;
 }
+
+.like-button {
+    background-color: transparent;
+    border: none;
+    font-size: 1.5em;
+    cursor: pointer;
+    margin-left: 10px;
+    color: #ff0000; /* Cor do coração */
+    transition: transform 0.2s ease;
+}
+
+.like-button:hover {
+    transform: scale(1.2); /* Aumenta o tamanho ao passar o mouse */
+}
+
+.like-counter {
+    font-size: 1.2em;
+    color: #333;
+    margin-left: 5px;
+    font-weight: bold;
+}
 .modal {
-    display: none;
+    display: none; /* Oculta o modal por padrão */
     position: fixed;
     z-index: 1000;
     left: 0;
@@ -185,21 +202,66 @@ main {
     width: 100%;
     height: 100%;
     overflow: auto;
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(0, 0, 0, 0.5); /* Fundo semitransparente */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.modal-content {
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 10px;
+    width: 40%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    position: relative;
+    font-family: Arial, sans-serif;
 }
 
-.modal-content {
-    background-color: white;
-    margin: 10% auto;
-    padding: 20px;
-    border-radius: 8px;
-    width: 50%;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+.modal-content h2 {
+    font-size: 1.8em;
+    color: #333;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.modal-content label {
+    font-size: 1em;
+    color: #555;
+    margin-bottom: 5px;
+    display: block;
+}
+
+.modal-content input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1em;
+    font-family: Arial, sans-serif;
+}
+
+.modal-content button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    width: 100%;
+    margin-top: 10px;
+}
+
+.modal-content button:hover {
+    background-color: #45a049;
 }
 
 .modal-close {
     color: #aaa;
-    float: right;
+    position: absolute;
+    top: 10px;
+    right: 15px;
     font-size: 28px;
     font-weight: bold;
     cursor: pointer;
@@ -208,35 +270,105 @@ main {
 .modal-close:hover {
     color: black;
 }
-
-.modal form {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-}
-
-.modal form label {
-    font-weight: bold;
-    color: #333;
-}
-
-.modal form input {
+/* Estilos para comentários */
+.comments-container {
+    margin-top: 15px;
     padding: 10px;
-    border: 1px solid #ddd;
+    background-color: #f9f9f9;
     border-radius: 5px;
-    font-size: 1em;
 }
 
-.modal form button {
+.comment-form {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.comment-form input {
+    flex: 1;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.comment-form button {
+    padding: 8px 15px;
     background-color: #4CAF50;
     color: white;
     border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
+    border-radius: 4px;
     cursor: pointer;
-    font-size: 1em;
 }
 
-.modal form button:hover {
-    background-color: #45a049;
+.comment {
+    padding: 8px;
+    margin-bottom: 8px;
+    background-color: white;
+    border-radius: 4px;
+    border-left: 3px solid #4CAF50;
+}
+
+.comment small {
+    display: block;
+    color: #777;
+    font-size: 0.8em;
+    margin-top: 3px;
+}
+
+/* Estilos para os botões de interação */
+.post-footer {
+    display: flex;
+    gap: 15px;
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid #eee;
+}
+
+.like-container, .comment-button {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.like-button, .comment-button, .edit-button, .delete-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1em;
+    padding: 5px;
+}
+
+.comment-button:hover, .edit-button:hover {
+    color: #4CAF50;
+}
+
+.delete-button:hover {
+    color: #f44336;
+}
+
+.post-actions {
+    margin-left: auto;
+    display: flex;
+    gap: 10px;
+}
+
+/* Estilos para o cabeçalho do post */
+.post-header {
+    margin-bottom: 10px;
+}
+
+.usuario-nome {
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+.post-data {
+    color: #777;
+    font-size: 0.9em;
+}
+
+.post-local {
+    color: #555;
+    font-style: italic;
+    margin: 5px 0;
 }
