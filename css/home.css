@@ -372,3 +372,16 @@ main {
     font-style: italic;
     margin: 5px 0;
 }
+.profile-icon img {
+    height: 40px;
+    width: 40px;
+    border-radius: 50%; 
+    object-fit: cover; 
+    filter: brightness(0) invert(1); 
+    transition: transform 0.2s ease;
+    cursor: pointer;
+}
+
+.profile-icon img:hover {
+    transform: scale(1.1); 
+}

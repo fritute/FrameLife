@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="/js/editarUsuario.js" defer></script>
+    <link rel="stylesheet" href="/css/editarUsuario.css">
+    <title>Editar Conta</title>
+
+</head>
+<body>
+    <header>
+        <div class="header-left">
+            <img src="/src/img/image1.png" alt="Logo">
+        </div>
+        <div class="header-center">Perfil</div>
+        <div class="header-right">
+            <img id="imagemPerfilHeader" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSWn6RYTCMqjPeCW9wcbFLDr6U0JUAs_W1xaA&s" alt="Perfil" style="height: 40px; border-radius: 50%;">
+        </div>
+    </header>
+
+    <!-- Container do perfil (aparece por padrão) -->
+    <div id="perfil-container">
+        <h2>Nome: <span id="nome-usuario"></span></h2>
+        <p>Email: <span id="email-usuario"></span></p>
+        <img id="foto-perfil" src="" alt="Foto de Perfil" style="height: 100px; border-radius: 10px;">
+        <div id="lista-publicacoes"></div>
+    </div>
+
+    <!-- Formulário de edição (inicialmente escondido) -->
+    <div class="form-container" style="display: none;">
+        <form id="formUsuario">
+            <input type="text" id="nome" placeholder="Nome" required>
+            <input type="email" id="email" placeholder="Email" required>
+            <input type="url" id="imagemPerfil" placeholder="URL da Imagem de Perfil" required>
+            <input type="text" id="senhaRecuperacao" placeholder="Senha de Recuperação" required>
+            <input type="hidden" id="userId" value="3">
+            <button type="submit">Atualizar</button>
+        </form>
+    </div>
+</body>
+
+</html>

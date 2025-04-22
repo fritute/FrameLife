@@ -6,9 +6,21 @@ const publicacoesContainer = document.getElementById('publicacoes-container')
 const modal = document.getElementById('modal')
 const modalForm = document.getElementById('modal-form')
 let currentPostId = null
-let usuarios = [] 
+let usuarios = []
+let usuarioLogado = null // Armazena os dados do usuário logado
 
+// Função para carregar o usuário logado
+const carregarUsuarioLogado = async () => {
+    try {
+        const response = await fetch('https://back-spider.vercel.app/user/getUser')
+        if (!response.ok) throw new Error('Erro ao buscar dados do usuário logado')
+        usuarioLogado = await response.json()
+    } catch (error) {
+        console.error('Erro ao carregar o usuário logado:', error)
+    }
+}
 
+// Função para carregar usuários
 const carregarUsuarios = async () => {
     try {
         const response = await fetch(apiUrlUsuarios)
@@ -19,7 +31,7 @@ const carregarUsuarios = async () => {
     }
 }
 
-
+// Função para carregar publicações
 const carregarPublicacoes = async () => {
     try {
         const response = await fetch(`${apiUrl}/listarPublicacoes`)
@@ -33,7 +45,7 @@ const carregarPublicacoes = async () => {
     }
 }
 
-
+// Função para criar uma publicação no DOM
 const criarPublicacao = ({ id, descricao, dataPublicacao, imagem, local, idUsuario, comentarios = [], curtidas = [] }) => {
     const publicacao = document.createElement('div')
     publicacao.classList.add('publicacao')
@@ -70,7 +82,7 @@ const criarPublicacao = ({ id, descricao, dataPublicacao, imagem, local, idUsuar
     commentButton.addEventListener('click', () => toggleComentarios(id))
     footer.appendChild(commentButton)
 
-    if (idUsuario === 2) { // Substitua `2` pelo ID do usuário logado
+    if (usuarioLogado && idUsuario === usuarioLogado.id) {
         const editButton = document.createElement('button')
         editButton.classList.add('edit-button')
         editButton.textContent = '✏️ Editar'
@@ -126,7 +138,7 @@ const criarPublicacao = ({ id, descricao, dataPublicacao, imagem, local, idUsuar
     publicacoesContainer.appendChild(publicacao)
 }
 
-
+// Função para obter o nome do usuário pelo ID
 const getNomeUsuario = (idUsuario) => {
     const usuario = usuarios.find(user => user.id === idUsuario)
     return usuario ? usuario.nome : 'Usuário desconhecido'
@@ -134,8 +146,17 @@ const getNomeUsuario = (idUsuario) => {
 
 // Função para dar like
 const darLike = async (id, button) => {
+    if (!usuarioLogado) {
+        alert('Você precisa estar logado para curtir.')
+        return
+    }
+
     try {
-        const response = await fetch(`${apiUrl}/likePublicacao/${id}`, { method: 'POST' })
+        const response = await fetch(`${apiUrl}/likePublicacao/${id}`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ idUsuario: usuarioLogado.id })
+        })
         if (!response.ok) throw new Error('Erro ao dar like')
         const curtidas = parseInt(button.textContent) + 1
         button.textContent = `${curtidas} ❤️`
@@ -145,84 +166,65 @@ const darLike = async (id, button) => {
     }
 }
 
-
+// Função para enviar comentário
 const enviarComentario = async (event, id) => {
     event.preventDefault()
+    if (!usuarioLogado) {
+        alert('Você precisa estar logado para comentar.')
+        return
+    }
+
     const input = event.target.querySelector('input')
     try {
         const response = await fetch(`${apiUrl}/commentPublicacao/${id}`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ descricao: input.value, idUsuario: id })
+            body: JSON.stringify({ descricao: input.value, idUsuario: usuarioLogado.id })
         })
         if (!response.ok) throw new Error('Erro ao enviar comentário')
         carregarPublicacoes()
-    }catch (error) {
+    } catch (error) {
         console.error('Erro ao enviar comentário:', error)
         alert('Erro ao enviar comentário.')
     }
 }
 
-
-const deletarPublicacao = async (id) => {
-    if (!confirm('Tem certeza que deseja deletar esta publicação?')) return
-    try {
-        const response = await fetch(`${apiUrl}/deletarPublicacao/${id}`, { method: 'DELETE' })
-        if (!response.ok) throw new Error('Erro ao deletar publicação')
-        carregarPublicacoes()
-    } catch (error) {
-        console.error('Erro ao deletar publicação:', error)
-        alert('Erro ao deletar publicação.')
-    }
-}
-
-
+// Função para abrir o modal de edição
 const abrirModal = (id) => {
     currentPostId = id
     const publicacao = document.querySelector(`.publicacao[data-id="${id}"]`)
     document.getElementById('modal-descricao').value = publicacao.querySelector('h2').textContent
     document.getElementById('modal-imagem').value = publicacao.querySelector('img')?.src || ''
     document.getElementById('modal-local').value = publicacao.querySelector('.post-local')?.textContent || ''
-    modal.style.display = 'flex'
+    modal.style.display = 'flex' // Exibe o modal
 }
 
+// Função para fechar o modal
+const fecharModal = () => {
+    modal.style.display = 'none' // Oculta o modal
+}
 
-modalForm.addEventListener('submit', async (event) => {
-    event.preventDefault()
-    const atualizacao = {
-        descricao: document.getElementById('modal-descricao').value,
-        imagem: document.getElementById('modal-imagem').value,
-        local: document.getElementById('modal-local').value
-    }
-    try {
-        const response = await fetch(`${apiUrl}/atualizarPublicacao/${currentPostId}`, {
-            method: 'PUT',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(atualizacao)
-        })
-        if (!response.ok) throw new Error('Erro ao atualizar publicação')
-        alert('Publicação atualizada com sucesso!')
-        modal.style.display = 'none'
-        carregarPublicacoes()
-    } catch (error) {
-        console.error(error)
-        alert('Erro ao atualizar publicação.')
-    }
-})
+// Fecha o modal ao clicar no botão "X"
+document.getElementById('modal-close').addEventListener('click', fecharModal)
 
+// Fecha o modal ao clicar fora do conteúdo
+if (modal) {
+    window.addEventListener('click', (event) => {
+        if (event.target === modal) {
+            fecharModal()
+        }
+    })
+}
 
-document.getElementById('modal-close').addEventListener('click', () => {
-    modal.style.display = 'none'
-})
-
-
+// Alterna a visibilidade dos comentários
 const toggleComentarios = (id) => {
     const container = document.getElementById(`comments-${id}`)
     container.style.display = container.style.display === 'none' ? 'block' : 'none'
 }
 
-
+// Inicialização
 (async () => {
+    await carregarUsuarioLogado()
     await carregarUsuarios()
     carregarPublicacoes()
 })()

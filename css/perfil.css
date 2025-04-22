@@ -277,3 +277,25 @@
   .error h3 {
     margin-top: 0;
   }
+  #atualizar-usuario-btn {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 1rem;
+    font-weight: bold;
+    color: var(--white);
+    background-color: var(--primary-color);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    margin-top: 1rem;
+}
+
+#atualizar-usuario-btn:hover {
+    background-color: #388e3c; /* Cor mais escura no hover */
+    transform: scale(1.05); /* Aumenta levemente o botão */
+}
+
+#atualizar-usuario-btn:active {
+    transform: scale(0.95); /* Reduz levemente o botão ao clicar */
+}
