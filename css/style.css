@@ -98,15 +98,7 @@ main {
     height: 100vh;
 }
 
-#senha {
-    color: blue;
-    text-align: left;
-    margin-top: 10px;
-    margin-left: 10%;
-    cursor: pointer;
-    text-decoration: underline;
-    position: relative;
-}
+
 
 #semconta {
     position: absolute;
@@ -126,79 +118,38 @@ main {
     font-size: 0.9em;
 }
 
-/* Responsividade para notebooks */
+/* Mantenha todas as regras existentes e substitua apenas a regra #senha */
+
+#senha {
+    color: blue;
+    align-self: flex-start;
+    margin-left: 10%;
+    margin-top: -15px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    text-decoration: underline;
+    font-size: 0.9em;
+}
+
+/* Atualize também a regra de responsividade para notebooks */
 @media screen and (max-width: 1366px) {
-    #container {
-        width: 40%; 
-        height: 90%; 
-        transform: translateX(0); 
-    }
-
-    #titulo1 {
-        font-size: 2.5em; 
-        margin-top: 30px; 
-    }
-
-    #formulario {
-        gap: 15px; 
-    }
-
-    #formulario input[type="email"]{
-        width: 90%; 
-        height: 60px; 
-        font-size: 0.9em; 
-    }
-
-    #formulario button {
-        width: 250px; 
-        height: 70px; 
-        font-size: 1em; 
-    }
-
+    /* Mantenha todas as outras regras e atualize apenas a parte do #senha */
     #senha {
-        font-size: 0.9em; 
-        margin-left: 10%; 
-        transform: translateY(-1300%);
-    }
-
-    #semconta,
-    #regsitrar {
-        font-size: 0.8em; 
-        right: 3%; 
-        
+        font-size: 0.9em;
+        margin-left: 10%;
+        margin-top: -15px;
+        margin-bottom: 10px;
+        transform: translateY(0); /* Remova a transformação anterior */
     }
 }
 
-/* Responsividade para telas menores que 1024px */
+/* Atualize a regra de responsividade para telas menores que 1024px */
 @media screen and (max-width: 1024px) {
-    #container {
-        width: 80%; 
-        height: 80%; 
-    }
-
-    #titulo1 {
-        font-size: 2em; 
-    }
-
-    #formulario input[type="email"] {
-        width: 100%; 
-        height: 50px; 
-    }
-
-    #formulario button {
-        width: 200px; 
-        height: 60px; 
-        font-size: 0.9em; 
-    }
-
+    /* Mantenha todas as outras regras e atualize apenas a parte do #senha */
     #senha {
-        font-size: 0.8em; 
-        margin-left: 5%; 
-    }
-
-    #semconta,
-    #regsitrar {
-        font-size: 0.7em; 
-        right: 5%; 
+        font-size: 0.8em;
+        margin-left: 5%;
+        margin-top: -10px;
+        margin-bottom: 8px;
     }
 }

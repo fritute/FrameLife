@@ -1,10 +1,10 @@
-'use strict';
+'use strict'
 
 document.addEventListener('DOMContentLoaded', async () => {
     // Configurações
     const USER_ID = 1; // ID do usuário logado
-    const API_BASE_URL = 'https://back-spider.vercel.app';
-    const DEFAULT_AVATAR = 'https://ui-avatars.com/api/?name=Usuario&background=0D8ABC&color=fff';
+    const API_BASE_URL = 'https://back-spider.vercel.app'
+    const DEFAULT_AVATAR = 'https://ui-avatars.com/api/?name=Usuario&background=0D8ABC&color=fff'
 
     // Elementos da página
     const elements = {
@@ -13,10 +13,10 @@ document.addEventListener('DOMContentLoaded', async () => {
         fotoPerfil: document.getElementById('foto-perfil'),
         listaPublicacoes: document.getElementById('lista-publicacoes'),
         perfilContainer: document.getElementById('perfil-container')
-    };
+    }
 
     // Mapa de usuários para armazenar nomes e fotos
-    let usuariosMap = {};
+    let usuariosMap = {}
 
     // Função para exibir erro
     function showError(message) {
@@ -32,8 +32,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     // Carregar dados dos usuários
     async function carregarUsuarios() {
         try {
-            const response = await fetch(`${API_BASE_URL}/user/listarUsers`);
-            if (!response.ok) throw new Error('Erro ao carregar usuários');
+            const response = await fetch(`${API_BASE_URL}/user/listarUsers`)
+            if (!response.ok) throw new Error('Erro ao carregar usuários')
            
             const usuarios = await response.json();
             usuarios.forEach(usuario => {
@@ -43,7 +43,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 };
             });
         } catch (error) {
-            console.error('Erro ao carregar usuários:', error);
+            console.error('Erro ao carregar usuários:', error)
         }
     }
 
@@ -90,9 +90,9 @@ document.addEventListener('DOMContentLoaded', async () => {
     window.toggleComentarios = function(postId) {
         const container = document.getElementById(`comentarios-${postId}`);
         if (container.style.display === 'none') {
-            container.style.display = 'block';
+            container.style.display = 'block'
         } else {
-            container.style.display = 'none';
+            container.style.display = 'none'
         }
     };
 
@@ -103,11 +103,11 @@ document.addEventListener('DOMContentLoaded', async () => {
             await carregarUsuarios();
            
             // Buscar publicações
-            const postsResponse = await fetch(`${API_BASE_URL}/publicacoes/listarPublicacoes`);
-            if (!postsResponse.ok) throw new Error('Erro ao carregar publicações');
+            const postsResponse = await fetch(`${API_BASE_URL}/publicacoes/listarPublicacoes`)
+            if (!postsResponse.ok) throw new Error('Erro ao carregar publicações')
            
             const allPosts = await postsResponse.json();
-            const publicacoes = allPosts.filter(post => post.idUsuario == USER_ID);
+            const publicacoes = allPosts.filter(post => post.idUsuario == USER_ID)
 
             // Exibir publicações
             elements.listaPublicacoes.innerHTML = publicacoes.length === 0
@@ -133,17 +133,17 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         } catch (error) {
             console.error('Erro:', error);
-            showError('Falha ao carregar publicações');
+            showError('Falha ao carregar publicações')
         }
     }
 
     // Inicialização
     try {
         // Carregar dados do usuário atual
-        const userResponse = await fetch(`${API_BASE_URL}/user/listarUsers`);
+        const userResponse = await fetch(`${API_BASE_URL}/user/listarUsers`)
         if (userResponse.ok) {
-            const users = await userResponse.json();
-            const usuario = users.find(u => u.id == USER_ID);
+            const users = await userResponse.json()
+            const usuario = users.find(u => u.id == USER_ID)
             if (usuario) {
                 elements.nomeUsuario.textContent = usuario.nome;
                 elements.emailUsuario.textContent = usuario.email;
@@ -152,10 +152,10 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
 
         // Carregar publicações
-        carregarPublicacoes();
+        carregarPublicacoes()
 
     } catch (error) {
-        console.error('Erro:', error);
-        showError('Falha ao carregar perfil');
+        console.error('Erro:', error)
+        showError('Falha ao carregar perfil')
     }
 });

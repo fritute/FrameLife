@@ -7,16 +7,56 @@ const modal = document.getElementById('modal')
 const modalForm = document.getElementById('modal-form')
 let currentPostId = null
 let usuarios = []
-let usuarioLogado = null // Armazena os dados do usuário logado
+let usuarioLogado = null
 
-// Função para carregar o usuário logado
+// Função para verificar se o usuário está logado
+const verificarLogin = () => {
+    if (!usuarioLogado || !usuarioLogado.id) {
+        alert('Você precisa estar logado para esta ação.')
+        return false
+    }
+    return true
+}
+
+// Função para carregar o usuário logado com tratamento melhorado
 const carregarUsuarioLogado = async () => {
     try {
-        const response = await fetch('https://back-spider.vercel.app/user/getUser')
-        if (!response.ok) throw new Error('Erro ao buscar dados do usuário logado')
-        usuarioLogado = await response.json()
+        const response = await fetch('https://back-spider.vercel.app/user/getUser', {
+            credentials: 'include' // Importante para enviar cookies de sessão
+        })
+        
+        if (!response.ok) {
+            usuarioLogado = null
+            throw new Error('Erro ao buscar dados do usuário logado')
+        }
+        
+        const data = await response.json()
+        
+        if (!data || !data.id) {
+            usuarioLogado = null
+            throw new Error('Nenhum usuário logado encontrado')
+        }
+        
+        usuarioLogado = data
+        console.log('Usuário logado carregado:', usuarioLogado) // Para debug
+        atualizarUIUsuario()
     } catch (error) {
         console.error('Erro ao carregar o usuário logado:', error)
+        usuarioLogado = null
+    }
+}
+
+// Atualiza a UI com informações do usuário
+const atualizarUIUsuario = () => {
+    const nomeUsuarioElement = document.getElementById('nome-usuario')
+    const fotoPerfilElement = document.getElementById('foto-perfil')
+    
+    if (usuarioLogado && nomeUsuarioElement && fotoPerfilElement) {
+        nomeUsuarioElement.textContent = usuarioLogado.nome || 'Usuário'
+        
+        if (usuarioLogado.fotoPerfil) {
+            fotoPerfilElement.src = usuarioLogado.fotoPerfil
+        }
     }
 }
 
@@ -146,20 +186,20 @@ const getNomeUsuario = (idUsuario) => {
 
 // Função para dar like
 const darLike = async (id, button) => {
-    if (!usuarioLogado) {
-        alert('Você precisa estar logado para curtir.')
-        return
-    }
+    if (!verificarLogin()) return
 
     try {
         const response = await fetch(`${apiUrl}/likePublicacao/${id}`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ idUsuario: usuarioLogado.id })
+            body: JSON.stringify({ idUsuario: usuarioLogado.id }),
+            credentials: 'include'
         })
+        
         if (!response.ok) throw new Error('Erro ao dar like')
-        const curtidas = parseInt(button.textContent) + 1
-        button.textContent = `${curtidas} ❤️`
+        
+        const resultado = await response.json()
+        button.textContent = `${resultado.curtidas || 0} ❤️`
     } catch (error) {
         console.error('Erro ao dar like:', error)
         alert('Erro ao curtir a publicação.')
@@ -169,52 +209,104 @@ const darLike = async (id, button) => {
 // Função para enviar comentário
 const enviarComentario = async (event, id) => {
     event.preventDefault()
-    if (!usuarioLogado) {
-        alert('Você precisa estar logado para comentar.')
-        return
-    }
+    if (!verificarLogin()) return
 
     const input = event.target.querySelector('input')
     try {
         const response = await fetch(`${apiUrl}/commentPublicacao/${id}`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ descricao: input.value, idUsuario: usuarioLogado.id })
+            body: JSON.stringify({ 
+                descricao: input.value, 
+                idUsuario: usuarioLogado.id 
+            }),
+            credentials: 'include'
         })
+        
         if (!response.ok) throw new Error('Erro ao enviar comentário')
-        carregarPublicacoes()
+        
+        input.value = '' // Limpa o campo de input
+        carregarPublicacoes() // Recarrega as publicações para mostrar o novo comentário
     } catch (error) {
         console.error('Erro ao enviar comentário:', error)
         alert('Erro ao enviar comentário.')
     }
 }
 
+// Função para deletar publicação
+const deletarPublicacao = async (id) => {
+    if (!verificarLogin()) return
+    if (!confirm('Tem certeza que deseja excluir esta publicação?')) return
+
+    try {
+        const response = await fetch(`${apiUrl}/deletarPublicacao/${id}`, {
+            method: 'DELETE',
+            credentials: 'include'
+        })
+        
+        if (!response.ok) throw new Error('Erro ao deletar publicação')
+        
+        carregarPublicacoes() // Recarrega as publicações após deletar
+    } catch (error) {
+        console.error('Erro ao deletar publicação:', error)
+        alert('Erro ao excluir publicação.')
+    }
+}
+
 // Função para abrir o modal de edição
 const abrirModal = (id) => {
+    if (!verificarLogin()) return
+    
     currentPostId = id
     const publicacao = document.querySelector(`.publicacao[data-id="${id}"]`)
     document.getElementById('modal-descricao').value = publicacao.querySelector('h2').textContent
     document.getElementById('modal-imagem').value = publicacao.querySelector('img')?.src || ''
-    document.getElementById('modal-local').value = publicacao.querySelector('.post-local')?.textContent || ''
-    modal.style.display = 'flex' // Exibe o modal
+    document.getElementById('modal-local').value = publicacao.querySelector('p').textContent.split('|')[0].replace('📍', '').trim()
+    modal.style.display = 'flex'
 }
 
 // Função para fechar o modal
 const fecharModal = () => {
-    modal.style.display = 'none' // Oculta o modal
+    modal.style.display = 'none'
 }
+
+// Event listener para o formulário de edição
+modalForm.addEventListener('submit', async (e) => {
+    e.preventDefault()
+    if (!verificarLogin()) return
+
+    try {
+        const response = await fetch(`${apiUrl}/atualizarPublicacao/${currentPostId}`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                descricao: document.getElementById('modal-descricao').value,
+                imagem: document.getElementById('modal-imagem').value,
+                local: document.getElementById('modal-local').value,
+                idUsuario: usuarioLogado.id
+            }),
+            credentials: 'include'
+        })
+        
+        if (!response.ok) throw new Error('Erro ao atualizar publicação')
+        
+        fecharModal()
+        carregarPublicacoes() // Recarrega as publicações após editar
+    } catch (error) {
+        console.error('Erro ao atualizar publicação:', error)
+        alert('Erro ao atualizar publicação.')
+    }
+})
 
 // Fecha o modal ao clicar no botão "X"
 document.getElementById('modal-close').addEventListener('click', fecharModal)
 
 // Fecha o modal ao clicar fora do conteúdo
-if (modal) {
-    window.addEventListener('click', (event) => {
-        if (event.target === modal) {
-            fecharModal()
-        }
-    })
-}
+window.addEventListener('click', (event) => {
+    if (event.target === modal) {
+        fecharModal()
+    }
+})
 
 // Alterna a visibilidade dos comentários
 const toggleComentarios = (id) => {
